@@ -11,17 +11,17 @@ public class sudokuSolver{
             {0, 0, 0, 8, 6, 0, 0, 0, 9},
             {3, 0, 6, 5, 0, 9, 0, 0, 0},
             {6, 9, 0, 7, 5, 4, 8, 0, 2},        //Get any board from sudoku.com
-            {0, 0, 0, 0, 0, 3, 1, 0, 4},        
+            {0, 0, 0, 0, 0, 3, 1, 0, 4},        //Blank spaces are replaced with 0s cuz int
             {2, 3, 4, 6, 1, 0, 9, 0, 7} 
         };
 
-        printBoard(board);          //Before solving
+        printBoard(board);                      //Before solving
         
-        boardSolver(board);         //Black magic
+        boardSolver(board);                     //Black magic
 
         if (boardSolver(board)){
             System.out.println("\nSolved Successfully!\n");
-            printBoard(board);          //After solving  
+            printBoard(board);                  //After solving  
         }
         else{
             System.out.println("\nBoard cannot be solved!\n");
@@ -31,11 +31,11 @@ public class sudokuSolver{
     private static void printBoard(int[][] board){
         for (int i = 0; i < GRID; i++){
             if (i % 3 == 0 && i != 0){
-                System.out.println("-----------");
+                System.out.println("-----------");      //Line after every 3 rows
             }
             for (int j = 0; j < GRID; j++){
                 if (j % 3 == 0 && j != 0){
-                    System.out.print("|");
+                    System.out.print("|");              //Line after every 3 columns
                 }
 
                 System.out.print(board[i][j]);
@@ -64,7 +64,7 @@ public class sudokuSolver{
 
     private static boolean numberInBox(int[][] board, int number, int row, int column){
         
-        int smallBoxRow = row - row % 3;
+        int smallBoxRow = row - row % 3;        
         int smallBoxColumn = column - column % 3;
 
         for (int i = smallBoxRow; i < smallBoxRow + 3; i++){
@@ -92,19 +92,19 @@ public class sudokuSolver{
                   if (isPossiblePlace(board, tempNumber, i, j)) {
                     board[i][j] = tempNumber;
                     
-                    if (boardSolver(board)) {        //More recursions :(
+                    if (boardSolver(board)) {        //If the following recursions also return true only then is this statement true
                       return true;
                     }
                     else {
-                      board[i][j] = 0;
+                      board[i][j] = 0;              //Otherwise we backtrack and set it to 0 and try again
                     }
                   }
                 }
-                return false;
+                return false;                       //Unsolvable board
               }
             }
           }
-          return true;
+          return true;                              //Mission passed
     }
 
 }
